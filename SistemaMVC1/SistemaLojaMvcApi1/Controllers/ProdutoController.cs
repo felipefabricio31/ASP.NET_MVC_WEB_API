@@ -10,18 +10,20 @@ using SistemaLojaMvcApi1.Models;
 
 namespace SistemaLojaMvcApi1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProdutoController : Controller
     {
         private SistemaLojaMvcApi1Context db = new SistemaLojaMvcApi1Context();
 
         // GET: Produto
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Produtoes.ToList());
         }
 
         // GET: Produto/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,13 +39,11 @@ namespace SistemaLojaMvcApi1.Controllers
         }
 
         // GET: Produto/Create
-        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
         // POST: Produto/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -62,7 +62,7 @@ namespace SistemaLojaMvcApi1.Controllers
         }
 
         // GET: Produto/Edit/5
-        [Authorize]
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,11 +77,11 @@ namespace SistemaLojaMvcApi1.Controllers
             return View(produto);
         }
 
-        [Authorize]
+        
         // POST: Produto/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProdutoId,Descricao,Preco,UltimaCompra,Estoque,Comentario")] Produto produto)
         {
@@ -95,7 +95,7 @@ namespace SistemaLojaMvcApi1.Controllers
         }
 
         // GET: Produto/Delete/5
-        [Authorize]
+        
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,7 +111,7 @@ namespace SistemaLojaMvcApi1.Controllers
         }
 
         // POST: Produto/Delete/5
-        [Authorize]
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

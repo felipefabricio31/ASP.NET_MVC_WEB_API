@@ -54,9 +54,9 @@ namespace SistemaLojaMvcApi1
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "461521627657856",
+               appSecret: "84a0b6c928a47a90c032bbaf861d9fd1");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

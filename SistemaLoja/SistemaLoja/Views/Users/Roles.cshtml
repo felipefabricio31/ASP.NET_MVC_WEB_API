@@ -1,0 +1,28 @@
+﻿@model SistemaLoja.ViewModels.UserView
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h4>Configurações de Permissões - Usuário - @Model.Nome </h4>
+
+<p>
+    @Html.ActionLink("Nova Permissão", "AddRole", new { userId = Model.UserId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Voltar", "Index", new { }, new { @class = "btn btn-info" })
+</p>
+<table class="table">
+   
+
+    @for(int i = 0; i < Model.Roles.Count; i++) { 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Roles[i].Name)
+            </td>
+            
+            <td>
+             
+                @Html.ActionLink("Excluir", "Delete", new { userId = Model.UserId, roleId = Model.Roles[i].RoleId })
+            </td>
+        </tr>
+    }
+
+</table>

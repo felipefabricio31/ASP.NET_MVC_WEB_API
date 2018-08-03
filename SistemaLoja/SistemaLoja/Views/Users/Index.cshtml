@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SistemaLoja.ViewModels.UserView>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Usuários</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Permissões", "Roles", new { userId = item.UserId }) 
+                
+            </td>
+        </tr>
+    }
+
+</table>

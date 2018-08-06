@@ -14,6 +14,5 @@ namespace SistemaLoja.Models
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "Você precisa entrar com o {0}")]
         public string Descricao { get; set; }
-
     }
 }

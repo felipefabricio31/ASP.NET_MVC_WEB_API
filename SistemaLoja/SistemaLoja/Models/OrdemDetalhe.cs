@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,7 +31,10 @@ namespace SistemaLoja.Models
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Quantidade { get; set; }
 
+        [JsonIgnore]
         public virtual Ordem Ordem { get; set; }
+
+        [JsonIgnore]
         public virtual Produto Produto { get; set; }
     }
 }

@@ -40,5 +40,7 @@ namespace SistemaLoja.Models
         public System.Data.Entity.DbSet<SistemaLoja.Models.OrdemDetalhe> OrdemDetalhe { get; set; }
 
         public System.Data.Entity.DbSet<SistemaLoja.Models.Categoria> Categorias { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.OrdensAPI> OrdensAPIs { get; set; }
     }
 }

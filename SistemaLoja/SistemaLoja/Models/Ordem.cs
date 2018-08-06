@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,8 +18,10 @@ namespace SistemaLoja.Models
 
         public OrdemStatus OrdemStatus { get; set; }
 
+        [JsonIgnore]
         public virtual Customizar Customizar { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<OrdemDetalhe> OrdensDetalhes { get; set; }
     }
 }

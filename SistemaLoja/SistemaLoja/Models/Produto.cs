@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,7 +22,7 @@ namespace SistemaLoja.Models
 
         [Display(Name = "Última Compra")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        //[DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         public DateTime UltimaCompra { get; set; }
 
         [Display(Name = "Estoque")]
@@ -33,7 +34,10 @@ namespace SistemaLoja.Models
         [DataType(DataType.MultilineText)]
         public string Comentario { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<FornecedorProduto> FornecedorProduto { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<OrdemDetalhe> OrdensDetalhes { get; set; }
     }
 }

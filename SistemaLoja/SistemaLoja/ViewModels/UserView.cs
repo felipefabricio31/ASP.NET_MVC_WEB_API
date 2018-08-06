@@ -14,9 +14,8 @@ namespace SistemaLoja.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-       
         public RoleView Role { get; set; }
-        public List<RoleView>Roles { get; set; }
 
+        public List<RoleView> Roles { get; set; }
     }
 }

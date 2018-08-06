@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace SistemaLoja.Controllers
 {
-    [Authorize(Users ="hugovasconcelosf@hotmail.com")]
+    [Authorize(Users = "felipe@gmail.com")]
     public class UsersController : Controller
     {
 
@@ -23,7 +23,7 @@ namespace SistemaLoja.Controllers
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var users = userManager.Users.ToList();
             var usersView = new List<UserView>();
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 var userView = new UserView
                 {
@@ -36,31 +36,27 @@ namespace SistemaLoja.Controllers
             }
             return View(usersView);
         }
-
-
+        
         public ActionResult Delete(string userId, string roleId)
         {
-            if(string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(roleId)){
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(roleId))
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            var user = userManager.Users.ToList().Find(u => u.Id == userId); 
+            var user = userManager.Users.ToList().Find(u => u.Id == userId);
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-            var role = roleManager.Roles.ToList().Find(r => r.Id == roleId); 
+            var role = roleManager.Roles.ToList().Find(r => r.Id == roleId);
 
-            if(userManager.IsInRole(user.Id, role.Name))
+            if (userManager.IsInRole(user.Id, role.Name))
             {
                 userManager.RemoveFromRole(user.Id, role.Name);
             }
 
             var users = userManager.Users.ToList();
 
-
-
-          
-          
             var roles = roleManager.Roles.ToList();
             var rolesView = new List<RoleView>();
 
@@ -75,9 +71,6 @@ namespace SistemaLoja.Controllers
 
                 rolesView.Add(roleView);
             }
-
-
-
 
             var userView = new UserView
             {
@@ -101,7 +94,7 @@ namespace SistemaLoja.Controllers
                 Email = user.Email,
                 Nome = user.UserName,
                 UserId = user.Id
-                
+
             };
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
@@ -128,23 +121,23 @@ namespace SistemaLoja.Controllers
 
             };
 
-
             var roleId = Request["RoleId"];
             if (string.IsNullOrEmpty(roleId))
             {
-                
+
                 var list = roleManager.Roles.ToList();
-                list.Add(new IdentityRole { Id = "", Name = "[Selecione uma Permissão!]" });
+                list.Add(new IdentityRole { Id = "", Name = "[Selecione uma Permissão...]" });
                 list = list.OrderBy(c => c.Name).ToList();
                 ViewBag.RoleId = new SelectList(list, "Id", "Name");
 
-                ViewBag.Error = "Você precisa selecionar uma permissão!!";
+                ViewBag.Error = "Você precisa selecionar uma permissão.";
                 return View(userView);
             }
 
             var roles = roleManager.Roles.ToList();
             var role = roles.Find(r => r.Id == roleId);
-            if (!userManager.IsInRole(userId, role.Name)) {
+            if (!userManager.IsInRole(userId, role.Name))
+            {
                 userManager.AddToRole(userId, role.Name);
             }
 
@@ -162,9 +155,6 @@ namespace SistemaLoja.Controllers
                 rolesView.Add(roleView);
             }
 
-
-
-
             userView = new UserView
             {
                 Email = user.Email,
@@ -172,8 +162,6 @@ namespace SistemaLoja.Controllers
                 UserId = user.Id,
                 Roles = rolesView
             };
-
-            
 
             return View("Roles", userView);
         }
@@ -183,7 +171,7 @@ namespace SistemaLoja.Controllers
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var users = userManager.Users.ToList();
 
-            
+
 
             var user = users.Find(u => u.Id == userId);
 
@@ -191,7 +179,8 @@ namespace SistemaLoja.Controllers
             var roles = roleManager.Roles.ToList();
             var rolesView = new List<RoleView>();
 
-            foreach (var item in user.Roles){
+            foreach (var item in user.Roles)
+            {
                 var role = roles.Find(r => r.Id == item.RoleId);
                 var roleView = new RoleView
                 {
@@ -201,9 +190,9 @@ namespace SistemaLoja.Controllers
 
                 rolesView.Add(roleView);
             }
-            
 
-           
+
+
 
             var userView = new UserView
             {
@@ -215,8 +204,7 @@ namespace SistemaLoja.Controllers
 
             return View(userView);
         }
-
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -226,9 +214,4 @@ namespace SistemaLoja.Controllers
             base.Dispose(disposing);
         }
     }
-
-
-
-   
-
 }

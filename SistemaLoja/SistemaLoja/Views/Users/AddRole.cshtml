@@ -4,7 +4,6 @@
 }
 
 <h2>Permissões do Usuário - @Model.Nome</h2>
-<h5>@ViewBag.Error</h5>
 
 @using (Html.BeginForm("AddRole", "Users", new {  userId = Model.UserId }, FormMethod.Post))
 {
@@ -25,8 +24,13 @@
 
 
         <input type="submit" value="Add Permissão" id="AddRole" class="btn btn-info" />
-
-
-
+        
     </div>
 }
+
+<br />
+<footer>
+        <div class="alert alert-danger" role="alert">
+            <h4><b>@ViewBag.Error</b></h4>
+        </div>
+</footer>

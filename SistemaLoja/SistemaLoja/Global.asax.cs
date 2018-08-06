@@ -20,11 +20,14 @@ namespace SistemaLoja
         protected void Application_Start()
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Models.SistemaLojaContext, Migrations.Configuration>());
+            
+            //Referencia para conexao default
             ApplicationDbContext db = new ApplicationDbContext();
             CriarRoles(db);
-            CriarSuperUser(db);
-            AddPermissoesSuperUser(db);
+            CriarSuperUsuario(db);
+            AddPermissoesSuperUSuario(db);
             db.Dispose();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -32,57 +35,57 @@ namespace SistemaLoja
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        private void AddPermissoesSuperUser(ApplicationDbContext db)
+        private void AddPermissoesSuperUSuario(ApplicationDbContext db)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            var user = userManager.FindByName("hugovasconcelosf@hotmail.com");
+            var user = userManager.FindByName("felipe@gmail.com");
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
             if(!userManager.IsInRole(user.Id, "View"))
             {
                 userManager.AddToRole(user.Id, "View");
-            }
 
-            
-            if (!userManager.IsInRole(user.Id, "Edit"))
-            {
-                userManager.AddToRole(user.Id, "Edit");
-            }
-
-            if (!userManager.IsInRole(user.Id, "Create"))
-            {
                 userManager.AddToRole(user.Id, "Create");
-            }
 
-            if (!userManager.IsInRole(user.Id, "Delete"))
-            {
+                userManager.AddToRole(user.Id, "Edit");
+                
                 userManager.AddToRole(user.Id, "Delete");
             }
-
         }
 
-        private void CriarSuperUser(ApplicationDbContext db)
+        private void CriarSuperUsuario(ApplicationDbContext db)
         {
+            //Atribui uma conexao que serve para Criar um novo usuario
+            //Utiliza a conexao Default
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            var user = userManager.FindByName("hugovasconcelosf@hotmail.com");
+            var user = userManager.FindByName("felipe@gmail.com");
 
+            //Verifica se existe
             if(user == null)
             {
                 user = new ApplicationUser
                 {
-                    UserName = "hugovasconcelosf@hotmail.com",
-                    Email = "hugovasconcelosf@hotmail.com"
-                };
+                    UserName = "felipe@gmail.com", 
+                    Email = "felipe@gmail.com",
 
-                userManager.Create(user, "A@123hugo");
+                };
+                //Cria usuario
+                userManager.Create(user, "Felipe0123*");
             }
+
         }
 
+
+
+        // Como o banco é dinamico, sempre que acessar este metodo 
+        // O sistema verifica se existe, caso exista ele não cria um novo.
         private void CriarRoles(ApplicationDbContext db)
         {
+            //Atribui uma conexao que serve para gerar os metodos do CRUD para variavel
+            //Utilizara a conexao Default
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
-            if (!roleManager.RoleExists("View"))
+            if(!roleManager.RoleExists("View"))
             {
                 roleManager.Create(new IdentityRole("View"));
             }

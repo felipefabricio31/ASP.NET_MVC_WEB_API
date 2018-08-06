@@ -55,8 +55,8 @@ namespace SistemaLoja
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "276157216162525",
-              appSecret: "0771645ffc56b520f28d547d3e8124be");
+               appId: "461521627657856",
+               appSecret: "84a0b6c928a47a90c032bbaf861d9fd1");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

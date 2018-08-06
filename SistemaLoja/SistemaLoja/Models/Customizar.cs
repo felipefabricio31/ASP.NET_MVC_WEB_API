@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,15 +34,13 @@ namespace SistemaLoja.Models
         public string Documento { get; set; }
 
         [Display(Name = "Tipo de Documento")]
+        [Required(ErrorMessage = "Você precisa entrar com o {0}")]
         public int TipoDocumentoId { get; set; }
 
 
         public string NomeCompleto { get { return string.Format("{0} {1}", Nome, Sobrenome);  } }
 
-        [JsonIgnore]
         public virtual TipoDocumento TipoDocumento { get; set; }
-
-        [JsonIgnore]
         public virtual ICollection<Ordem> Ordem { get; set; }
     }
 }

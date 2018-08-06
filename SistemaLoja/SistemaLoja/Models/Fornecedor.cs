@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,7 +29,6 @@ namespace SistemaLoja.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [JsonIgnore]
         public virtual ICollection<FornecedorProduto> FornecedorProduto { get; set; }
     }
 }

@@ -10,13 +10,12 @@ using SistemaLoja.Models;
 
 namespace SistemaLoja.Controllers
 {
-    
+    [Authorize]
     public class ProdutoController : Controller
     {
         private SistemaLojaContext db = new SistemaLojaContext();
 
         // GET: Produto
-        
         [Authorize(Roles = "View")]
         public ActionResult Index()
         {
@@ -24,7 +23,6 @@ namespace SistemaLoja.Controllers
         }
 
         // GET: Produto/Details/5
-        
         [Authorize(Roles = "View")]
         public ActionResult Details(int? id)
         {
@@ -52,6 +50,7 @@ namespace SistemaLoja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Create")]
         public ActionResult Create([Bind(Include = "ProdutoId,Descricao,Preco,UltimaCompra,Estoque,Comentario")] Produto produto)
         {
             if (ModelState.IsValid)
@@ -85,6 +84,7 @@ namespace SistemaLoja.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Edit")]
         public ActionResult Edit([Bind(Include = "ProdutoId,Descricao,Preco,UltimaCompra,Estoque,Comentario")] Produto produto)
         {
             if (ModelState.IsValid)
@@ -115,7 +115,7 @@ namespace SistemaLoja.Controllers
         // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        
+        [Authorize(Roles = "Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Produto produto = db.Produtoes.Find(id);

@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "JASON(API)";
+}
+
+<h2>Json e Ajax</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.TextBox("txtNumero", 0)
+
+    <button id="btnCalcular">Calcular</button><br />
+
+    <div id="lblMensagem">
+
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function ()
+        {
+            $("#btnCalcular").on("click", function ()
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("JsonFatorial")',
+                    data: { n: $('#txtNumero').val() },
+                    datatype: 'json',
+                    cache: false
+                })
+
+                    .success(function (data)
+                    {
+                        $("#lblMensagem").html(data.Fatorial);
+                    })
+
+                    .error(function (xhr, ajaxOptions, throwError)
+                    {
+                        $("#lblMensagem").html("Ocorreu um erro");
+                    })
+
+                return false;
+            });
+        });
+    </script>
+}
